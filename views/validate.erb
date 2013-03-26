@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Validate</title>
+	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script>
+		$(function() {
+			var url = '/email-validation/<%= @tracking_key %>/validated'
+			var validated = false;
+
+			var check_validated = function()
+			{
+				if(validated) return true;
+
+				console.log('Checking...');
+
+				$.getJSON(url, function(data) {
+
+					if(data.validated)
+					{
+						document.write('Thank you for validating your email!');
+
+						validated = true;
+					}
+				});
+			}
+
+			setInterval(check_validated, 1000)
+		});
+	</script>
+</head>
+<body>
+	Please check your email. To validate, either click the link or just open it and make sure you are displaying images. You can leave this page open.
+</body>
+</html>
